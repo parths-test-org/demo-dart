@@ -22,7 +22,7 @@
 
 ---
 
-A reactive caching and data-binding framework. https://riverpod.dev  
+A reactive caching and   data-binding framework. https://riverpod.dev  
 Riverpod makes working with asynchronous code a breeze by:
 
 - handling errors/loading states by default. No need to manually catch errors
