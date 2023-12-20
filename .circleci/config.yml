@@ -37,8 +37,6 @@ jobs:
       - tailscale/connect
       - run:
           name: Upload SARIF report to DeepSource
-          environment:
-            DEEPSOURCE_DSN: $DEEPSOURCE_DSN
           command: |
             # Install the DeepSource CLI
             curl https://deepsource.io/cli | sh
