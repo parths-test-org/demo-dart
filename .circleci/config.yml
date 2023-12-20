@@ -1,0 +1,48 @@
+version: 2.1
+
+parameters:
+  dart-tag:
+    type: string
+    default: "latest"
+
+orbs:
+  circleci-tailscale: threecomma/circleci-tailscale@2.2.0
+
+jobs:
+  scan-and-report:
+    docker:
+      - image: google/dart:<<pipeline.parameters.dart-tag>>
+
+    steps:
+      - checkout
+
+      - run:
+          name: Run Dart Analyze
+          command: dart analyze > dart_analyze.txt || true
+
+      - run:
+          name: Dart Analyze to SARIF
+          command: |
+            curl -sSL https://raw.githubusercontent.com/advanced-security/dart-analyzer-sarif/main/dart_analyzer_sarif.py > dart-analyzer-sarif
+            chmod +x dart-analyzer-sarif
+            ./dart-analyzer-sarif --input dart_analyze.txt --output dart_analyze.sarif
+
+      - connect
+      - run:
+          name: Upload SARIF report to DeepSource
+          environment:
+            DEEPSOURCE_DSN: $DEEPSOURCE_DSN
+          command: |
+            # Install the DeepSource CLI
+            curl https://deepsource.io/cli | sh
+
+            # Set the DEEPSOURCE_DSN environment variable
+            export DEEPSOURCE_DSN="${DEEPSOURCE_DSN}"
+
+            # Send the report to DeepSource
+            ./bin/deepsource report --analyzer dart-analyze --analyzer-type community --value-file ./dart_analyze.sarif
+
+workflows:
+  scan-dart-analyze-workflow:
+    jobs:
+      - scan-and-report
