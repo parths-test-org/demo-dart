@@ -17,6 +17,12 @@ jobs:
       - checkout
 
       - run:
+        name: Setup Python
+        command: |
+          apt update
+          apt install python3
+
+      - run:
           name: Run Dart Analyze
           command: dart analyze > dart_analyze.txt || true
 
