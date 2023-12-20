@@ -6,7 +6,7 @@ parameters:
     default: "latest"
 
 orbs:
-  circleci-tailscale: threecomma/circleci-tailscale@2.2.0
+  tailscale: threecomma/circleci-tailscale@2.2.0
 
 jobs:
   scan-and-report:
@@ -27,7 +27,7 @@ jobs:
             chmod +x dart-analyzer-sarif
             ./dart-analyzer-sarif --input dart_analyze.txt --output dart_analyze.sarif
 
-      - connect
+      - tailscale/connect
       - run:
           name: Upload SARIF report to DeepSource
           environment:
