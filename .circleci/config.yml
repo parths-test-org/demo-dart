@@ -41,8 +41,6 @@ jobs:
             # Install the DeepSource CLI
             curl https://deepsource.io/cli | sh
 
-            echo $DEEPSOURCE_DSN
-
             # Send the report to DeepSource
             ./bin/deepsource report --analyzer dart-analyze --analyzer-type community --value-file ./dart_analyze.sarif
 
