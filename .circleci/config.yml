@@ -11,7 +11,7 @@ orbs:
 jobs:
   scan-and-report:
     docker:
-      - image: google/dart:<<pipeline.parameters.dart-tag>>
+      - image: dart:<<pipeline.parameters.dart-tag>>
 
     steps:
       - checkout
@@ -24,8 +24,7 @@ jobs:
           name: Dart Analyze to SARIF
           command: |
             curl -sSL https://raw.githubusercontent.com/advanced-security/dart-analyzer-sarif/main/dart_analyzer_sarif.py > dart-analyzer-sarif
-            chmod +x dart-analyzer-sarif
-            ./dart-analyzer-sarif --input dart_analyze.txt --output dart_analyze.sarif
+            python3 dart-analyzer-sarif --input dart_analyze.txt --output dart_analyze.sarif
 
       - tailscale/connect
       - run:
