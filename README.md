@@ -1,6 +1,6 @@
 # Dart FFI Samples
 
-A series of simple examples demonstrating how to call C libraries from Dart.
+A series of  simple examples demonstrating how to call C libraries from Dart.
 
 This code is designed to work with *Dart version 2.12.0* and above.
 
