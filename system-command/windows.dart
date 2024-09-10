@@ -55,6 +55,7 @@ int shellExecute(String operation, String file) {
       ffi.nullptr, operationP, fileP, ffi.nullptr, ffi.nullptr, SW_SHOWNORMAL);
   calloc.free(operationP);
   calloc.free(fileP);
+  calloc.free(fileP);
 
   return result;
 }
